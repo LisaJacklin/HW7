@@ -12,6 +12,10 @@
 //Header: first four lines with whats shown (pixels, size, name)
 
 #include <iostream>
+#include <algorithm>
+#include <fstream>
+#include <stdlib.h>
+#include <stdio.h>
 
 #if 0
 #CREATOR: GIMP PNM Filter Version 1.1
@@ -30,8 +34,8 @@ int main()
 {
 	//open the ppm file
 	//input file stream
-	std::string filename = "parrot.ppm"
-		ifstream(filename);
+	std::string filename = "parrot.ppm";
+		std::ifstream(filename);
 	if (!fin) {
 		std::cout << "Error opening" << filename << "\n";
 		exit(1);
@@ -40,8 +44,8 @@ int main()
 
 
 	//read (and verify) the header information
-	string line;
-	getline(fin, line);
+	std::string line;
+	std::getline(fin, line);
 	if (line[0] == 'P' && line[1] == '3') {
 		std::cout << "PPM (text)" << "\n";
 	}
@@ -51,7 +55,7 @@ int main()
 	}
 
 	//quick and dirty - process the comment
-	getline(fin, line);
+	std::getline(fin, line);
 	if (line[0] == '#') {
 		std::cout << "ignore the comment\n";
 	}
@@ -72,14 +76,14 @@ int main()
 	int r, g, b;
 	int pixels2read = xres * yres;
 
-	for (int i = 0, i < pixels2read; i++) {
+	for (int i = 0; i < pixels2read; i++) {
 		fin >> r >> g >> b;
 		if (!fin) {
 			std::cout << "Error reading pixels\n";
 			exit(3);
 		}
 		//convert to grayscale
-		y = 0.2126 * r + 0.7152 * g + 0.00722 * b;
+		auto y = 0.2126 * r + 0.7152 * g + 0.00722 * b;
 		//std::cout << i << " = " << r << " "<< g << " " << b <<" \n";
 		//std::cout << "-->" << y << "\n";
 			//largest value that should be shown here is 255
@@ -105,4 +109,3 @@ int main()
 		std::cout << "Done\n";
 
 	}
-}
