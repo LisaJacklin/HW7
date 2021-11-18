@@ -8,7 +8,7 @@
 // This will be wordy while writing/debugging
 // Agile - get it working for parrot.ppm
 
-/* This is the first few lines of parrot.ppm
+/*This is the first few lines of parrot.ppm
 P3
 # CREATOR: GIMP PNM Filter Version 1.1
 80 80
@@ -26,6 +26,7 @@ using std::cout;
 using std::endl;
 using std::string;
 #include <fstream>
+#include <sstream>
 using std::ifstream;
 
 int main()
