@@ -10,6 +10,8 @@ int main()
 {
     char message[100], ch;
     int i, key;
+
+
     std::cout << "Enter a message to encrypt: ";
     std::cin.getline(message, 100);
     std::cout << "Enter key: ";
