@@ -40,7 +40,7 @@ int main()
         cout << "Error opening " << infile << endl;
         exit(1);
     }
-    cout << "Opened " << infile << endl;
+    else { cout << "Opened " << infile << endl; }
 
     // read the magic number
     string line;

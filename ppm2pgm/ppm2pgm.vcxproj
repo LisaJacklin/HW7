@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{654de02b-3016-4782-867e-53e6c6c56304}</ProjectGuid>
-    <RootNamespace>asciiartcpp</RootNamespace>
+    <ProjectGuid>{86063898-a35e-4430-a2a2-3ea51dcd8cba}</ProjectGuid>
+    <RootNamespace>ppm2pgm</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="asciiart.cpp" />
+    <ClCompile Include="ppm2pgm.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

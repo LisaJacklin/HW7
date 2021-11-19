@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="asciiart.cpp">
+    <ClCompile Include="ppm2pgm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

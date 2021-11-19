@@ -21,7 +21,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\parrot.ppm">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
 </Project>
