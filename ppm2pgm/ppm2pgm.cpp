@@ -5,94 +5,46 @@
 //
 
 
-/*This is the first few lines of parrot.ppm
-P3
-# CREATOR: GIMP PNM Filter Version 1.1
-80 80
-255
-0
-0
-1
-10
-11
-8
-*/
+//--Including the libraries
+#include<stdio.h>
+#include<ppm.h>
+#include<math.h>
+#include<pgm.h>
 
-#include <iostream>
-using std::cout;
-using std::endl;
-using std::string;
-#include <fstream>
-#include <sstream>
-using std::ifstream;
+int main() {
 
-int main()
-{
-    cout << "Program to convert a ppm to ascii art" << endl;
+	//----Declaration of variables
+	int i, j, cols, rows, format;
+	pixval maxval, r, g, b;
+	pixel* x;
+	gray maxvalg;
+	gray** y;
+	FILE* fp1, * fp2;
 
-    // open the file
-    string infile = "parrot.ppm";
-    ifstream fin(infile);
-    if (!fin) {
-        cout << "Error opening " << infile << endl;
-        exit(1);
-    }
-    else { cout << "Opened " << infile << endl; }
+	//----Reading image
+	fp1 = fopen("tetra1.ppm", "r");
+	fp2 = fopen("tetrag1.pgm", "w");
+	ppm_readppminit(fp1, &cols, &rows, &maxval, &format);
+	x = pgm_allocrow(cols);
+	y = pgm_allocarray(cols, rows);
+	maxvalg = (maxval);
+	pgm_writepgminit(fp2, cols, rows, maxvalg, 1);
 
-    // read the magic number
-    string line;
-    getline(fin, line);
-    if (line[0] == 'P' && line[1] == '3') {
-        cout << "PPM (text)" << endl;
-    }
-    else {
-        cout << "Unable to read magic number P3" << endl;
-        exit(2);
-    }
+	//---For loop to read every pixel value
+	for (i = 0; i < rows; i++) {
+		ppm_readppmrow(fp1, x, cols, maxval, format);
+		for (j = 0; j < cols; j++) {
+			r = PPM_GETR(x[j]);/* Red intensity */
+			g = PPM_GETG(x[j]);/* Green intensity */
+			b = PPM_GETB(x[j]);/* Blue intensity */
 
-    // quick and dirty - process comment
-    getline(fin, line);
-    if (line[0] == '#') {
-        cout << "Ignoring comment" << endl;
-    }
+   //----Following statement assigns the grayvalue to each pixel.
+			y[i][j] = (gray)(.299 * r + .587 * g + .114 * b);
+		}
 
-    // this won't handle comments
-    int xres, yres, maxval;
-    fin >> xres >> yres >> maxval;
-    if (!fin) {
-        cout << "Error reading stream" << endl;
-        exit(3);
-    }
-    cout << "Image size: " << xres << " x " << yres << endl;
-    cout << "Maxval = " << maxval << endl;
-
-    // loop for xres * yres iterations
-    int r, g, b, iy;
-    double y;
-    char values[] = "@@@###***+++--- ";
-    for (int i = 0; i < xres * yres; i++) {
-        fin >> r >> g >> b;
-        if (!fin) {
-            cout << "Error reading stream" << endl;
-            exit(4);
-        }
-        // Y = 0.2126R + 0.7152G + 0.0722B (from HW7)
-        y = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-        // test
-        if (y < 0.0 || y >= 256.0) cout << "ERROR!!!!!!!!!!!" << endl;
-        //    cout << r << " " << g << " " << b;
-        //    cout << " => " << y;
-        iy = (int)y;
-        // iy should be [0...255]
-        if (iy < 0 || iy > 255) cout << "ERROR!!!!!!!!!!!!!!" << endl;
-        //    cout << " => " << iy;
-        iy /= 16;
-        // iy should be [0...15]
-        if (iy < 0 || iy > 15) cout << "ERROR!!!!!!!!!!!!!!" << endl;
-        //    cout << " => " << iy << endl;
-        cout << values[iy];
-        if (i % 80 == 79) cout << endl;
-    }
+		/*---Writing the output image---*/
+		pgm_writepgmrow(fp2, y[i], cols, maxvalg, 1);
+	}
 
     cout << "Program finished" << endl;
 }
